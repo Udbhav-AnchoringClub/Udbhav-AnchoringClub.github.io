@@ -1,0 +1,814 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upcoming Event - UDBHAV | DYPCOE</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --royal-blue: #2F4E9E;
+            --coral: #FF6B4A;
+            --soft-white: #F9FAFB;
+            --charcoal: #333333;
+            --cool-gray: #6B7280;
+            --sky-blue: #3ABFF8;
+            --pure-white: #FFFFFF;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--soft-white);
+            color: var(--charcoal);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            padding: 1rem 0;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(47, 78, 158, 0.1);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .navbar.scrolled {
+            background: rgba(255, 255, 255, 0.98);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+        }
+
+        .logo {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--royal-blue);
+            transition: transform 0.3s ease;
+            text-decoration: none;
+        }
+
+        .logo:hover {
+            transform: scale(1.05);
+        }
+
+        .logo img {
+            height: 50px;
+            width: 50px;
+            object-fit: cover;
+            border-radius: 50%;
+            display: block;
+            transition: transform 0.3s ease;
+            aspect-ratio: 1;
+        }
+
+        .logo img:hover {
+            transform: scale(1.05);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links li {
+            position: relative;
+        }
+
+        .nav-links a {
+            color: var(--royal-blue);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 50%;
+            background: linear-gradient(90deg, var(--coral), var(--sky-blue));
+            transition: all 0.3s ease;
+            border-radius: 2px;
+        }
+
+        .nav-links a:hover::after {
+            width: 80%;
+            left: 10%;
+        }
+
+        .nav-links a:hover {
+            color: var(--coral);
+        }
+
+        /* Mobile menu button */
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--royal-blue);
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .mobile-menu-btn:hover {
+            transform: scale(1.1);
+        }
+
+        /* Page Header */
+        .page-header {
+            margin-top: 80px;
+            padding: 4rem 0 2rem;
+            background: linear-gradient(135deg, var(--soft-white) 0%, rgba(47, 78, 158, 0.05) 100%);
+            text-align: center;
+        }
+
+        .page-title {
+            font-family: 'Poppins', sans-serif;
+            font-size: 3.5rem;
+            font-weight: 700;
+            color: var(--royal-blue);
+            margin-bottom: 1rem;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .page-subtitle {
+            font-size: 1.3rem;
+            color: var(--cool-gray);
+            font-weight: 500;
+        }
+
+        /* Main Content */
+        .main-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+        }
+
+        .section {
+            margin-bottom: 4rem;
+            background: var(--pure-white);
+            border-radius: 20px;
+            padding: 3rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(107, 114, 128, 0.1);
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        /* Event Poster Section */
+        .poster-section {
+            text-align: center;
+            background: linear-gradient(135deg, var(--pure-white), rgba(58, 191, 248, 0.05));
+            border: 2px solid var(--sky-blue);
+        }
+
+        .event-poster {
+            width: 70.7%;
+            max-width: 600px;
+            height: 600px;
+            margin: 0 auto;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(47, 78, 158, 0.2);
+            transition: transform 0.3s ease;
+            background: var(--soft-white);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 3px dashed var(--cool-gray);
+        }
+
+        .event-poster:hover {
+            transform: scale(1.02);
+        }
+
+        .event-poster img {
+            width: 70.7%;
+            height: 141.4%;
+            object-fit: cover;
+        }
+
+        .poster-placeholder {
+            color: var(--cool-gray);
+            font-size: 1.2rem;
+            text-align: center;
+        }
+
+        .poster-placeholder i {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            color: var(--sky-blue);
+        }
+
+        /* Event Details Section */
+        .event-details {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: start;
+        }
+
+        .detail-item {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            background: var(--soft-white);
+            padding: 2rem;
+            border-radius: 15px;
+            border-left: 5px solid var(--coral);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .detail-item:hover {
+            transform: translateX(10px);
+            box-shadow: 0 15px 30px rgba(255, 107, 74, 0.2);
+        }
+
+        .detail-item i {
+            font-size: 2.5rem;
+            color: var(--coral);
+            transition: transform 0.3s ease;
+            flex-shrink: 0;
+        }
+
+        .detail-item:hover i {
+            transform: scale(1.1);
+        }
+
+        .detail-content h3 {
+            font-family: 'Poppins', sans-serif;
+            color: var(--charcoal);
+            margin-bottom: 0.5rem;
+            font-size: 1.3rem;
+        }
+
+        .detail-content p {
+            color: var(--cool-gray);
+            font-size: 1.1rem;
+            font-weight: 500;
+        }
+
+        /* Event Information Section */
+        .event-info {
+            background: linear-gradient(135deg, var(--pure-white), rgba(255, 107, 74, 0.05));
+            border: 2px solid rgba(255, 107, 74, 0.2);
+        }
+
+        .info-title {
+            font-family: 'Poppins', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--royal-blue);
+            margin-bottom: 2rem;
+            text-align: center;
+            position: relative;
+        }
+
+        .info-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--coral), var(--sky-blue));
+            border-radius: 2px;
+        }
+
+        .info-content {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: var(--charcoal);
+            text-align: justify;
+        }
+
+        .info-content p {
+            margin-bottom: 1.5rem;
+        }
+
+        .highlight-box {
+            background: var(--soft-white);
+            padding: 2rem;
+            border-radius: 15px;
+            border-left: 5px solid var(--sky-blue);
+            margin: 2rem 0;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .highlight-box h4 {
+            font-family: 'Poppins', sans-serif;
+            color: var(--royal-blue);
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+
+        /* RSVP Section */
+        .rsvp-section {
+            background: linear-gradient(135deg, var(--royal-blue), #1e3a8a);
+            color: var(--pure-white);
+            text-align: center;
+        }
+
+        .rsvp-title {
+            font-family: 'Poppins', sans-serif;
+            font-size: 2.8rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: var(--pure-white);
+        }
+
+        .rsvp-subtitle {
+            font-size: 1.2rem;
+            margin-bottom: 3rem;
+            opacity: 0.9;
+        }
+
+        .rsvp-content {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 3rem;
+        }
+
+        .qr-container {
+            background: var(--pure-white);
+            padding: 2rem;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease;
+            min-width: 250px;
+        }
+
+        .qr-container:hover {
+            transform: scale(1.05);
+        }
+
+        .qr-code {
+            width: 200px;
+            height: 200px;
+            background: var(--soft-white);
+            border: 3px dashed var(--cool-gray);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1rem;
+        }
+
+        .qr-code img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 12px;
+        }
+
+        .qr-placeholder {
+            color: var(--cool-gray);
+            text-align: center;
+        }
+
+        .qr-placeholder i {
+            font-size: 3rem;
+            margin-bottom: 0.5rem;
+            color: var(--sky-blue);
+        }
+
+        .qr-text {
+            color: var(--charcoal);
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        .rsvp-info {
+            max-width: 400px;
+        }
+
+        .rsvp-info h4 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+        }
+
+        .rsvp-info p {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin-bottom: 2rem;
+        }
+
+        .rsvp-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: var(--coral);
+            color: var(--pure-white);
+            padding: 1.2rem 2.5rem;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 25px rgba(255, 107, 74, 0.3);
+        }
+
+        .rsvp-button:hover {
+            background: #ff5722;
+            transform: translateY(-3px);
+            box-shadow: 0 15px 35px rgba(255, 107, 74, 0.4);
+        }
+
+        /* Back Button */
+        .back-button {
+            position: fixed;
+            top: 50%;
+            left: 2rem;
+            transform: translateY(-50%);
+            background: var(--coral);
+            color: var(--pure-white);
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            font-size: 1.5rem;
+            box-shadow: 0 10px 25px rgba(255, 107, 74, 0.3);
+            transition: all 0.3s ease;
+            z-index: 500;
+        }
+
+        .back-button:hover {
+            background: #ff5722;
+            transform: translateY(-50%) scale(1.1);
+            box-shadow: 0 15px 35px rgba(255, 107, 74, 0.4);
+        }
+
+        /* Footer */
+        .footer {
+            background: linear-gradient(135deg, var(--royal-blue), #1e3a8a);
+            color: var(--pure-white);
+            text-align: center;
+            padding: 3rem 2rem;
+            margin-top: 4rem;
+        }
+
+        .footer h3 {
+            font-family: 'Poppins', sans-serif;
+            margin-bottom: 1rem;
+        }
+
+        .footer a {
+            color: var(--coral);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .footer a:hover {
+            opacity: 0.8;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: rgba(255, 255, 255, 0.98);
+                flex-direction: column;
+                padding: 2rem;
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+                gap: 1rem;
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .page-title {
+                font-size: 2.5rem;
+            }
+
+            .page-subtitle {
+                font-size: 1.1rem;
+            }
+
+            .event-details {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .detail-item {
+                flex-direction: column;
+                text-align: center;
+                gap: 1rem;
+            }
+
+            .rsvp-content {
+                flex-direction: column;
+                gap: 2rem;
+            }
+
+            .back-button {
+                left: 1rem;
+                width: 50px;
+                height: 50px;
+                font-size: 1.2rem;
+            }
+
+            .section {
+                padding: 2rem;
+                margin-bottom: 3rem;
+            }
+
+            .nav-container {
+                padding: 0 1rem;
+            }
+
+            .main-content {
+                padding: 3rem 1rem;
+            }
+
+            .info-title {
+                font-size: 2rem;
+            }
+
+            .rsvp-title {
+                font-size: 2.2rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .page-title {
+                font-size: 2rem;
+            }
+            
+            .info-title {
+                font-size: 1.8rem;
+            }
+            
+            .rsvp-title {
+                font-size: 1.8rem;
+            }
+            
+            .event-poster {
+                height: 300px;
+            }
+            
+            .detail-item i {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Back Button -->
+    <a href="index.html" class="back-button" title="Back to Home">
+        <i class="fas fa-arrow-left"></i>
+    </a>
+
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <img src="Udbhav_logo.jpg" alt="UDBHAV Logo">
+            </a>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="index.html#home">Home</a></li>
+                <li><a href="index.html#about">Who We Are</a></li>
+                <li><a href="#" class="active">Upcoming Event</a></li>
+                <li><a href="index.html#events">Past Events</a></li>
+                <li><a href="index.html#team">Team</a></li>
+                <li><a href="index.html#contact">Contact Us</a></li>
+            </ul>
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <div class="page-header">
+        <h1 class="page-title">Upcoming Event</h1>
+        <p class="page-subtitle">Join us for a journey of soft skill development and stage presence.</p>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Event Poster Section -->
+        <section class="section poster-section">
+            <div class="event-poster">
+                <!-- Replace this div with your event poster image -->
+                <div class="poster-placeholder">
+                    <i class="fas fa-image"></i>
+                    <p>Event Poster<br><small>Replace this with your event poster image</small></p>
+                </div>
+                <!-- Uncomment and use this when you have the poster -->
+                <!-- <img src="your-event-poster.jpg" alt="Event Poster"> -->
+            </div>
+        </section>
+
+        <!-- Event Details Section -->
+        <section class="section">
+            <div class="event-details">
+                <div class="detail-item">
+                    <i class="fas fa-calendar-alt"></i>
+                    <div class="detail-content">
+                        <h3>Event Date</h3>
+                        <p>March 15, 2025<br>Saturday, 10:00 AM</p>
+                    </div>
+                </div>
+                <div class="detail-item">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <div class="detail-content">
+                        <h3>Location</h3>
+                        <p>DYPCOE Auditorium<br>Dr. D.Y. Patil College of Engineering</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Event Information Section -->
+        <section class="section event-info">
+            <h2 class="info-title">Event Information</h2>
+            <div class="info-content">
+                <p>Welcome to UDBHAV's signature anchoring workshop - "Master the Mic"! This comprehensive event is designed to transform your public speaking abilities and boost your confidence on stage.</p>
+                
+                <div class="highlight-box">
+                    <h4>What You'll Learn:</h4>
+                    <p>Professional anchoring techniques, voice modulation, stage presence, audience engagement strategies, and real-time event management skills.</p>
+                </div>
+
+                <p>Our experienced mentors will guide you through interactive sessions, practical exercises, and live demonstrations. Whether you're a beginner looking to overcome stage fear or an experienced speaker wanting to refine your skills, this event is perfect for you.</p>
+
+                <div class="highlight-box">
+                    <h4>Event Highlights:</h4>
+                    <p>• Live anchoring practice sessions<br>
+                    • One-on-one mentorship opportunities<br>
+                    • Networking with industry professionals<br>
+                    • Certificate of participation<br>
+                    • Refreshments and surprises!</p>
+                </div>
+
+                <p>Don't miss this opportunity to be part of UDBHAV's growing community of confident speakers and charismatic anchors. Limited seats available!</p>
+            </div>
+        </section>
+
+        <!-- RSVP Section -->
+        <section class="section rsvp-section">
+            <h2 class="rsvp-title">RSVP Now!</h2>
+            <p class="rsvp-subtitle">Secure your spot for this amazing event</p>
+            
+            <div class="rsvp-content">
+                <div class="qr-container">
+                    <div class="qr-code">
+                        <!-- Replace this div with your QR code image -->
+                        <div class="qr-placeholder">
+                            <i class="fas fa-qrcode"></i>
+                            <p>QR Code</p>
+                        </div>
+                        <!-- Uncomment and use this when you have the QR code -->
+                        <!-- <img src="your-qr-code.png" alt="QR Code for Registration"> -->
+                    </div>
+                    <p class="qr-text">Scan to Register</p>
+                </div>
+                
+                <div class="rsvp-info">
+                    <h4>Quick Registration</h4>
+                    <p>Scan the QR code with your phone camera or click the button below to register for the event. Fill out the quick form and you're all set!</p>
+                    <a href="#" class="rsvp-button">
+                        <i class="fas fa-external-link-alt"></i>
+                        Register Online
+                    </a>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <h3>UDBHAV - Anchoring Club</h3>
+        <p>Dr. D.Y. Patil College of Engineering, Pune</p>
+        <p>© 2025 UDBHAV. All rights reserved. | Follow us on <a href="https://www.instagram.com/udbhav.dypcoe?igsh=MWlxdHN2amdzb3N5OA==">Instagram</a> & <a href="www.linkedin.com/in/udbhav-the-anchoring-club-of-dypcoe-733826384">LinkedIn</a></p>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        document.getElementById('mobileMenuBtn').addEventListener('click', function() {
+            const navLinks = document.getElementById('navLinks');
+            const icon = this.querySelector('i');
+            
+            navLinks.classList.toggle('active');
+            icon.classList.toggle('fa-bars');
+            icon.classList.toggle('fa-times');
+        });
+
+        // Navbar scroll effect
+        window.addEventListener('scroll', function() {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 100) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Close mobile menu when clicking on a link
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', function() {
+                const navLinks = document.getElementById('navLinks');
+                const menuBtn = document.getElementById('mobileMenuBtn');
+                const icon = menuBtn.querySelector('i');
+                
+                navLinks.classList.remove('active');
+                icon.classList.add('fa-bars');
+                icon.classList.remove('fa-times');
+            });
+        });
+
+        // Add animation to sections on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe all sections
+        document.querySelectorAll('.section').forEach(section => {
+            section.style.opacity = '0';
+            section.style.transform = 'translateY(50px)';
+            section.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
+            observer.observe(section);
+        });
+
+        // Animate detail items
+        document.querySelectorAll('.detail-item').forEach((item, index) => {
+            item.style.animationDelay = `${index * 0.2}s`;
+        });
+    </script>
+</body>
+</html>
