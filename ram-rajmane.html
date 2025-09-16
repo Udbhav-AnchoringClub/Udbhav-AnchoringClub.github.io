@@ -1,0 +1,768 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ram Rajmane - Event Head | UDBHAV</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --royal-blue: #2F4E9E;
+            --coral: #FF6B4A;
+            --soft-white: #F9FAFB;
+            --charcoal: #333333;
+            --cool-gray: #6B7280;
+            --sky-blue: #3ABFF8;
+            --pure-white: #FFFFFF;
+            --linkedin-blue: #0077B5;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--soft-white);
+            color: var(--charcoal);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            padding: 1rem 0;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(47, 78, 158, 0.1);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .navbar.scrolled {
+            background: rgba(255, 255, 255, 0.98);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+        }
+
+        .logo {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--royal-blue);
+            transition: transform 0.3s ease;
+            text-decoration: none;
+        }
+
+        .logo:hover {
+            transform: scale(1.05);
+        }
+
+        .logo img {
+            height: 50px;
+            width: 50px;
+            object-fit: cover;
+            border-radius: 50%;
+            display: block;
+            transition: transform 0.3s ease;
+            aspect-ratio: 1;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: var(--royal-blue);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+        }
+
+        .nav-links a:hover {
+            color: var(--coral);
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--royal-blue);
+            cursor: pointer;
+        }
+
+        /* Back Button */
+        .back-button {
+            position: fixed;
+            top: 50%;
+            left: 2rem;
+            transform: translateY(-50%);
+            background: var(--coral);
+            color: var(--pure-white);
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            font-size: 1.5rem;
+            box-shadow: 0 10px 25px rgba(255, 107, 74, 0.3);
+            transition: all 0.3s ease;
+            z-index: 500;
+        }
+
+        .back-button:hover {
+            transform: translateY(-50%) scale(1.1);
+            box-shadow: 0 15px 35px rgba(255, 107, 74, 0.4);
+        }
+
+        /* Main Container */
+        .main-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 100px 2rem 2rem;
+        }
+
+        /* Profile Header - LinkedIn Style */
+        .profile-header {
+            background: var(--pure-white);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            margin-bottom: 2rem;
+            position: relative;
+        }
+
+        .cover-photo {
+            height: 200px;
+            background: linear-gradient(135deg, var(--royal-blue), var(--sky-blue));
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .cover-pattern {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: radial-gradient(circle at 20% 50%, rgba(255, 255, 255, 0.1) 2px, transparent 2px),
+                            radial-gradient(circle at 80% 50%, rgba(255, 255, 255, 0.1) 2px, transparent 2px);
+            background-size: 40px 40px;
+        }
+
+        .profile-main-info {
+            padding: 0 2rem 2rem;
+            position: relative;
+        }
+
+        .profile-photo-container {
+            position: absolute;
+            top: -80px;
+            left: 2rem;
+        }
+
+        .profile-photo {
+            width: 160px;
+            height: 160px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--coral), var(--sky-blue));
+            border: 6px solid var(--pure-white);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            color: var(--pure-white);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease;
+            overflow: hidden;
+        }
+
+        .profile-photo:hover {
+            transform: scale(1.05);
+        }
+
+        .profile-photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+        }
+
+        .profile-info {
+            margin-top: 100px;
+            margin-left: 180px;
+        }
+
+        .member-name {
+            font-family: 'Poppins', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--charcoal);
+            margin-bottom: 0.5rem;
+        }
+
+        .member-position {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--royal-blue);
+            margin-bottom: 0.5rem;
+        }
+
+        .member-club {
+            font-size: 1.1rem;
+            color: var(--cool-gray);
+            margin-bottom: 1rem;
+        }
+
+        .profile-stats {
+            display: flex;
+            gap: 2rem;
+            margin-top: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .stat-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--cool-gray);
+        }
+
+        .stat-item i {
+            color: var(--sky-blue);
+        }
+
+        /* Profile Content Sections */
+        .profile-section {
+            background: var(--pure-white);
+            border-radius: 20px;
+            padding: 2.5rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(107, 114, 128, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .profile-section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .section-title {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: var(--royal-blue);
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .section-title i {
+            color: var(--coral);
+            font-size: 1.5rem;
+        }
+
+        .section-content {
+            font-size: 1rem;
+            line-height: 1.7;
+            color: var(--charcoal);
+        }
+
+        .section-content p {
+            margin-bottom: 1.5rem;
+        }
+
+        /* Achievements Grid */
+        .achievements-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .achievement-item {
+            background: var(--soft-white);
+            padding: 1.5rem;
+            border-radius: 15px;
+            border-left: 4px solid var(--coral);
+            transition: transform 0.3s ease;
+        }
+
+        .achievement-item:hover {
+            transform: translateX(10px);
+        }
+
+        .achievement-item h4 {
+            font-family: 'Poppins', sans-serif;
+            color: var(--royal-blue);
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+        }
+
+        .achievement-item p {
+            color: var(--cool-gray);
+            font-size: 0.95rem;
+            margin: 0;
+        }
+
+        /* Skills Section */
+        .skills-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .skill-tag {
+            background: linear-gradient(45deg, var(--sky-blue), var(--royal-blue));
+            color: var(--pure-white);
+            padding: 0.7rem 1.5rem;
+            border-radius: 25px;
+            font-weight: 500;
+            font-size: 0.9rem;
+            transition: transform 0.3s ease;
+        }
+
+        .skill-tag:hover {
+            transform: scale(1.05);
+        }
+
+        /* Social Links */
+        .social-links {
+            display: flex;
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .social-link {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            background: var(--soft-white);
+            padding: 1.2rem 2rem;
+            border-radius: 15px;
+            text-decoration: none;
+            color: var(--charcoal);
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            border: 2px solid transparent;
+        }
+
+        .social-link.linkedin {
+            border-color: var(--linkedin-blue);
+        }
+
+        .social-link.linkedin:hover {
+            background: var(--linkedin-blue);
+            color: var(--pure-white);
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 119, 181, 0.3);
+        }
+
+        .social-link.instagram {
+            border-color: #E1306C;
+        }
+
+        .social-link.instagram:hover {
+            background: linear-gradient(45deg, #F58529, #DD2A7B, #8134AF, #515BD4);
+            color: var(--pure-white);
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(225, 48, 108, 0.3);
+        }
+
+        .social-link i {
+            font-size: 1.5rem;
+            transition: transform 0.3s ease;
+        }
+
+        .social-link:hover i {
+            transform: scale(1.1);
+        }
+
+        .social-info strong {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1rem;
+        }
+
+        .social-info span {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        /* Experience Timeline */
+        .timeline {
+            position: relative;
+            margin-top: 2rem;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 20px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(to bottom, var(--coral), var(--sky-blue));
+        }
+
+        .timeline-item {
+            position: relative;
+            padding-left: 60px;
+            margin-bottom: 2rem;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: 12px;
+            top: 8px;
+            width: 16px;
+            height: 16px;
+            background: var(--coral);
+            border-radius: 50%;
+            border: 3px solid var(--pure-white);
+            box-shadow: 0 0 0 3px var(--coral);
+        }
+
+        .timeline-content {
+            background: var(--soft-white);
+            padding: 1.5rem;
+            border-radius: 15px;
+            border-left: 4px solid var(--sky-blue);
+        }
+
+        .timeline-title {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            color: var(--royal-blue);
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-period {
+            color: var(--coral);
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .profile-info {
+                margin-left: 0;
+                margin-top: 40px;
+                text-align: center;
+            }
+
+            .profile-photo-container {
+                position: relative;
+                top: -60px;
+                left: 50%;
+                transform: translateX(-50%);
+                margin-bottom: -60px;
+            }
+
+            .profile-photo {
+                width: 120px;
+                height: 120px;
+                font-size: 3rem;
+            }
+
+            .member-name {
+                font-size: 2rem;
+            }
+
+            .profile-stats {
+                justify-content: center;
+            }
+
+            .social-links {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .social-link {
+                width: 100%;
+                max-width: 300px;
+                justify-content: center;
+            }
+
+            .back-button {
+                left: 1rem;
+                width: 50px;
+                height: 50px;
+                font-size: 1.2rem;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .main-container {
+                padding: 90px 1rem 1rem;
+            }
+
+            .profile-section {
+                padding: 1.5rem;
+            }
+
+            .member-name {
+                font-size: 1.8rem;
+            }
+
+            .section-title {
+                font-size: 1.5rem;
+            }
+
+            .achievements-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Back Button -->
+    <a href="../index.html" class="back-button" title="Back to Home">
+        <i class="fas fa-arrow-left"></i>
+    </a>
+
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <a href="../index.html" class="logo">
+                <img src="../Udbhav_logo.jpg" alt="UDBHAV Logo">
+            </a>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="../index.html#home">Home</a></li>
+                <li><a href="../index.html#about">Who We Are</a></li>
+                <li><a href="../upcoming-event.html">Upcoming Event</a></li>
+                <li><a href="../index.html#events">Past Events</a></li>
+                <li><a href="../index.html#team">Team</a></li>
+                <li><a href="../index.html#contact">Contact Us</a></li>
+            </ul>
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Main Container -->
+    <div class="main-container">
+        <!-- Profile Header -->
+        <div class="profile-header">
+            <div class="cover-photo">
+                <div class="cover-pattern"></div>
+            </div>
+            <div class="profile-main-info">
+                <div class="profile-photo-container">
+                    <div class="profile-photo">
+                        <!-- Replace this with actual photo when available -->
+                        
+                        <!-- Uncomment when photo is available -->
+                         <img src="ram.jpg" alt="ram"> 
+                    </div>
+                </div>
+                <div class="profile-info">
+                    <h1 class="member-name">Ram Rajmane</h1>
+                    <div class="member-position"><strong>Event Head</strong></div>
+                    <div class="member-club">UDBHAV - Anchoring Club, DYPCOE</div>
+                  
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- About Section -->
+        <div class="profile-section">
+            <div class="section-title">
+                <i class="fas fa-user"></i>
+                About
+            </div>
+            <div class="section-content">
+                <p>As the Event Head of UDBHAV, Ram brings creativity, energy, and flawless execution to every program the club organizes. With a sharp sense of planning and excellent coordination skills, Ram ensures that each event is not only seamless but also leaves a lasting impact on participants and audiences alike.</p>
+                
+                <p> Under his leadership, UDBHAV’s events will grow more engaging, dynamic, and well-structured, reflecting his passion for innovation and attention to detail. Known for his problem-solving ability and team-oriented approach, Ram inspires confidence among members and motivates them to deliver their best. His dedication to excellence makes him an integral force in shaping UDBHAV’s reputation as DYPCOE’s premier anchoring club.</p>
+            </div>
+        </div>
+
+        <!-- Work & Contributions Section -->
+        <div class="profile-section">
+            <div class="section-title">
+                <i class="fas fa-briefcase"></i>
+                Work & Contributions
+            </div>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="timeline-title">Club Expansion Initiative</div>
+                        <div class="timeline-period">2024 - Present</div>
+                        <p>Led the strategic expansion of UDBHAV membership from 15 to 50+ active members, establishing comprehensive recruitment and onboarding processes.</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="timeline-title">Annual Event Leadership</div>
+                        <div class="timeline-period">February 2024</div>
+                        <p>Orchestrated the club's participation in the college Annual Day, coordinating with faculty and managing a team of 20+ anchors for seamless event execution.</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="timeline-title">Training Program Development</div>
+                        <div class="timeline-period">2024 - Ongoing</div>
+                        <p>Developed and implemented structured training modules focusing on voice modulation, stage presence, and audience engagement techniques.</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="timeline-title">Industry Collaboration</div>
+                        <div class="timeline-period">2024</div>
+                        <p>Established partnerships with local media houses and event management companies to provide real-world exposure and internship opportunities for members.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+     
+     
+        <!-- Connect Section -->
+        <div class="profile-section">
+            <div class="section-title">
+                <i class="fas fa-handshake"></i>
+                Let's Connect
+            </div>
+            <div class="section-content">
+                <p>Interested in joining UDBHAV or want to collaborate on exciting projects? Feel free to reach out through any of the platforms below. Always happy to connect with fellow communication enthusiasts and aspiring leaders!</p>
+            </div>
+            <div class="social-links">
+                <a href="#" class="social-link linkedin" target="_blank">
+                    <i class="fab fa-linkedin"></i>
+                    <div class="social-info">
+                        <strong>LinkedIn</strong><br>
+                        <span>Connect professionally</span>
+                    </div>
+                </a>
+                <a href="#" class="social-link instagram" target="_blank">
+                    <i class="fab fa-instagram"></i>
+                    <div class="social-info">
+                        <strong>Instagram</strong><br>
+                        <span>@ram.rajmane</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Mobile menu toggle
+        document.getElementById('mobileMenuBtn').addEventListener('click', function() {
+            const navLinks = document.getElementById('navLinks');
+            const icon = this.querySelector('i');
+            
+            navLinks.classList.toggle('active');
+            icon.classList.toggle('fa-bars');
+            icon.classList.toggle('fa-times');
+        });
+
+        // Navbar scroll effect
+        window.addEventListener('scroll', function() {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 100) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Animate sections on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe all profile sections
+        document.querySelectorAll('.profile-section').forEach(section => {
+            section.style.opacity = '0';
+            section.style.transform = 'translateY(50px)';
+            section.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
+            observer.observe(section);
+        });
+
+        // Timeline animation
+        document.querySelectorAll('.timeline-item').forEach((item, index) => {
+            item.style.opacity = '0';
+            item.style.transform = 'translateX(-50px)';
+            item.style.transition = `opacity 0.6s ease ${index * 0.2}s, transform 0.6s ease ${index * 0.2}s`;
+            
+            observer.observe(item);
+        });
+
+        // Skills animation
+        document.querySelectorAll('.skill-tag').forEach((skill, index) => {
+            skill.style.opacity = '0';
+            skill.style.transform = 'scale(0.8)';
+            skill.style.transition = `opacity 0.4s ease ${index * 0.1}s, transform 0.4s ease ${index * 0.1}s`;
+            
+            setTimeout(() => {
+                skill.style.opacity = '1';
+                skill.style.transform = 'scale(1)';
+            }, index * 100);
+        });
+    </script>
+</body>
+</html>
