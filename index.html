@@ -155,35 +155,36 @@
 
         /* Cover Photo Slider CSS */
        /* Cover Photo Slider CSS */
+/* FIXED Cover Slider */
 .cover-slider {
     position: absolute;
     top: 0;
     left: 0;
-    width: 500%; /* 5 images * 100% per image */
+    width: 200%; /* 2 images = 200% */
     height: 100%;
     display: flex;
-    animation: slide-horizontal 25s linear infinite; /* Adjust speed here (e.g., 25s for slow) */
+    transition: transform 1s ease-in-out;
 }
 
+@media (max-width: 768px) {
+    .cover-slider {
+        width: 200%;
+    }
+
+    .cover-slider img {
+        height: 100%;
+        object-fit: cover;
+    }
+}
 .cover-slider img {
     width: 100%;
-    height: 120%;
-    object-fit: cover;
-    min-width: 20%; /* 100% divided by the number of images (5) */
-    display: block;
-    position: relative;
-    filter: brightness(60%); /* Apply the transparent/opaque look directly on images */
+    height: 100%;
+    object-fit: cover;   /* important */
+    flex: 0 0 100%;      /* each image full width */
+    filter: brightness(60%);
 }
 
-/* Keyframe animation for continuous sliding */
-@keyframes slide-horizontal {
-    0% {
-        transform: translateX(0);
-    }
-    100% {
-        transform: translateX(-80%); /* (Total images - 1) * 100% */
-    }
-}
+
         .profile-content {
             max-width: 1200px;
             margin: 0 auto;
@@ -437,19 +438,22 @@
             box-shadow: 0 25px 50px rgba(47, 78, 158, 0.2);
         }
 
-        .event-image {
-            width: 100%;
-            height: 250px;
-            overflow: hidden;
-            border-radius: 12px 12px 0 0;
+       .event-image {
+         width: 100%;
+         height: 250px;
+         overflow: hidden;
         }
 
-        .event-image img {
-            width: 200%;
-            height: 120%;
-            object-fit: cover;
-            /* Removed zoom effect to prevent face cutting */
-        }
+     @media (max-width: 768px) {
+        .event-image {
+            height: 200px; /* smaller in mobile */
+           }
+     }
+     .event-image img {
+         width: 100%;
+         height: 100%;
+         object-fit: cover;
+       }
 
         .event-content {
             padding: 2rem;
@@ -1147,38 +1151,29 @@
             });
         });
 
-        // New JavaScript for the slider
-        document.addEventListener('DOMContentLoaded', () => {
-            const slider = document.getElementById('coverSlider');
-            const images = slider.querySelectorAll('img');
-            const totalImages = images.length;
-            let currentImage = 0;
-            const slideInterval = 5000; // 5 seconds
+document.addEventListener('DOMContentLoaded', () => {
+    const slider = document.getElementById('coverSlider');
+    const images = slider.querySelectorAll('img');
+    const totalImages = images.length;
 
-            function nextSlide() {
-                currentImage++;
-                if (currentImage >= totalImages) {
-                    // Instantly reset to the first image without transition
-                    slider.style.transition = 'none';
-                    slider.style.transform = `translateX(0)`;
-                    currentImage = 0;
+    slider.style.width = `${totalImages * 100}%`;
 
-                    // A brief timeout is needed to allow the browser to apply the transform before re-enabling the transition
-                    setTimeout(() => {
-                        slider.style.transition = 'transform 1s ease-in-out';
-                    }, 50);
-                } else {
-                    slider.style.transform = `translateX(-${currentImage * 100}%)`;
-                }
-            }
+    images.forEach(img => {
+        img.style.flex = `0 0 ${100 / totalImages}%`;
+    });
 
-            // Start the automatic sliding
-            setInterval(nextSlide, slideInterval);
-        });
+    let currentImage = 0;
+
+    setInterval(() => {
+        currentImage = (currentImage + 1) % totalImages;
+        slider.style.transform = `translateX(-${currentImage * (100 / totalImages)}%)`;
+    }, 5000);
+});
     </script>
 </body>
 
 </html>
+
 
 
 
