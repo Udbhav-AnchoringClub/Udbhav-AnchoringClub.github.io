@@ -145,13 +145,14 @@
         .profile-header {
             margin-top: 80px;
             position: relative;
-            padding: 4rem 0;
+            padding: 0;
             background: linear-gradient(135deg, var(--soft-white) 0%, rgba(47, 78, 158, 0.05) 100%);
             display: flex;
             align-items: center;
             min-height: 500px;
             overflow: hidden; /* Crucial for slider */
         }
+
 
 .cover-slider {
     position: absolute;
@@ -165,7 +166,7 @@
 
 .cover-slider img {
     width: 25%;               /* 100% / 4 images */
-    height: 100%;
+    height: auto;
     object-fit: cover;
     filter: brightness(60%);
 }
@@ -1180,6 +1181,7 @@ document.addEventListener('DOMContentLoaded', () => {
 </body>
 
 </html>
+
 
 
 
