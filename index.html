@@ -1154,39 +1154,26 @@
 document.addEventListener("DOMContentLoaded", function () {
     const slider = document.getElementById("coverSlider");
     const slides = slider.querySelectorAll("img");
-    const slideCount = slides.length;
+    const totalSlides = slides.length;
 
-    // Clone first slide and append to end
-    const firstClone = slides[0].cloneNode(true);
-    slider.appendChild(firstClone);
-
-    const totalSlides = slideCount + 1;
-
+    // Set width dynamically
     slider.style.width = totalSlides * 100 + "%";
 
-    let index = 0;
+    let currentIndex = 0;
 
-    function moveSlide() {
-        index++;
-        slider.style.transition = "transform 1s linear";
-        slider.style.transform = `translateX(-${index * 100}%)`;
-
-        // When reaching clone, reset smoothly
-        if (index === slideCount) {
-            setTimeout(() => {
-                slider.style.transition = "none";
-                slider.style.transform = "translateX(0)";
-                index = 0;
-            }, 1000);
-        }
+    function nextSlide() {
+        currentIndex = (currentIndex + 1) % totalSlides;
+        slider.style.transform = `translateX(-${currentIndex * (100 / totalSlides)}%)`;
     }
 
-    setInterval(moveSlide, 3000); // speed control here
+    // Slide every 4 seconds
+    setInterval(nextSlide, 4000);
 });
     </script>
 </body>
 
 </html>
+
 
 
 
