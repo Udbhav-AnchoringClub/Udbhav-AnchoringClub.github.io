@@ -160,27 +160,14 @@
     position: absolute;
     top: 0;
     left: 0;
-    width: 200%; /* 2 images = 200% */
     height: 100%;
     display: flex;
-    transition: transform 1s ease-in-out;
 }
 
-@media (max-width: 768px) {
-    .cover-slider {
-        width: 200%;
-    }
-
-    .cover-slider img {
-        height: 100%;
-        object-fit: cover;
-    }
-}
 .cover-slider img {
     width: 100%;
     height: 100%;
-    object-fit: cover;   /* important */
-    flex: 0 0 100%;      /* each image full width */
+    object-fit: cover;
     filter: brightness(60%);
 }
 
@@ -1151,28 +1138,50 @@
             });
         });
 
-document.addEventListener("DOMContentLoaded", function () {
-    const slider = document.getElementById("coverSlider");
-    const slides = slider.querySelectorAll("img");
-    const totalSlides = slides.length;
+// Cover Slider JavaScript
+document.addEventListener('DOMContentLoaded', () => {
+    const slider = document.getElementById('coverSlider');
+    const images = slider.querySelectorAll('img');
+    const totalImages = images.length;
 
-    // Set width dynamically
-    slider.style.width = totalSlides * 100 + "%";
+    // Dynamically set slider width
+    slider.style.width = `${totalImages * 100}%`;
 
-    let currentIndex = 0;
+    // Set each image width properly
+    images.forEach(img => {
+        img.style.flex = `0 0 ${100 / totalImages}%`;
+    });
+
+    let currentImage = 0;
+    const slideInterval = 5000; // 5 seconds
 
     function nextSlide() {
-        currentIndex = (currentIndex + 1) % totalSlides;
-        slider.style.transform = `translateX(-${currentIndex * (100 / totalSlides)}%)`;
+        currentImage++;
+
+        if (currentImage >= totalImages) {
+            // Reset instantly without animation
+            slider.style.transition = 'none';
+            slider.style.transform = 'translateX(0)';
+            currentImage = 0;
+
+            // Re-enable transition
+            setTimeout(() => {
+                slider.style.transition = 'transform 1s ease-in-out';
+            }, 50);
+
+        } else {
+            slider.style.transition = 'transform 1s ease-in-out';
+            slider.style.transform = `translateX(-${currentImage * (100 / totalImages)}%)`;
+        }
     }
 
-    // Slide every 4 seconds
-    setInterval(nextSlide, 4000);
+    setInterval(nextSlide, slideInterval);
 });
     </script>
 </body>
 
 </html>
+
 
 
 
