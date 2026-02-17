@@ -1151,28 +1151,43 @@
             });
         });
 
-document.addEventListener('DOMContentLoaded', () => {
-    const slider = document.getElementById('coverSlider');
-    const images = slider.querySelectorAll('img');
-    const totalImages = images.length;
+document.addEventListener("DOMContentLoaded", function () {
+    const slider = document.getElementById("coverSlider");
+    const slides = slider.querySelectorAll("img");
+    const slideCount = slides.length;
 
-    slider.style.width = `${totalImages * 100}%`;
+    // Clone first slide and append to end
+    const firstClone = slides[0].cloneNode(true);
+    slider.appendChild(firstClone);
 
-    images.forEach(img => {
-        img.style.flex = `0 0 ${100 / totalImages}%`;
-    });
+    const totalSlides = slideCount + 1;
 
-    let currentImage = 0;
+    slider.style.width = totalSlides * 100 + "%";
 
-    setInterval(() => {
-        currentImage = (currentImage + 1) % totalImages;
-        slider.style.transform = `translateX(-${currentImage * (100 / totalImages)}%)`;
-    }, 5000);
+    let index = 0;
+
+    function moveSlide() {
+        index++;
+        slider.style.transition = "transform 1s linear";
+        slider.style.transform = `translateX(-${index * 100}%)`;
+
+        // When reaching clone, reset smoothly
+        if (index === slideCount) {
+            setTimeout(() => {
+                slider.style.transition = "none";
+                slider.style.transform = "translateX(0)";
+                index = 0;
+            }, 1000);
+        }
+    }
+
+    setInterval(moveSlide, 3000); // speed control here
 });
     </script>
 </body>
 
 </html>
+
 
 
 
