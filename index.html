@@ -153,33 +153,27 @@
             overflow: hidden; /* Crucial for slider */
         }
 
-        /* Cover Photo Slider CSS */
-       /* Cover Photo Slider CSS */
 .cover-slider {
     position: absolute;
     top: 0;
     left: 0;
-    width: 200%;          /* 2 images = 200% */
+    width: 400%;              /* 4 images total */
     height: 100%;
     display: flex;
-    animation: slide-horizontal 12s linear infinite;
+    animation: slide 20s linear infinite;
 }
 
 .cover-slider img {
-    width: 50%;           /* 100% / 2 images */
+    width: 25%;               /* 100% / 4 images */
     height: 100%;
     object-fit: cover;
     filter: brightness(60%);
 }
 
-/* Smooth infinite slide */
-@keyframes slide-horizontal {
-    0% {
-        transform: translateX(0);
-    }
-    100% {
-        transform: translateX(-50%);
-    }
+/* Smooth infinite sliding */
+@keyframes slide {
+    0%   { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
 }
 
         .profile-content {
@@ -819,8 +813,8 @@
         <div class="cover-slider" id="coverSlider">
             <img src="Traditionalday26p-1.jpg" alt="Cover Photo 1">
             <img src="Traditionalday26b-1.jpg" alt="Cover Photo 2" >
-            
-           
+            <img src="Traditionalday26p-1.jpg" alt="Cover Photo 3">
+            <img src="Traditionalday26b-1.jpg" alt="Cover Photo 4" >
         </div>
         <div class="profile-content">
             <div class="club-logo">
@@ -1186,6 +1180,7 @@ document.addEventListener('DOMContentLoaded', () => {
 </body>
 
 </html>
+
 
 
 
