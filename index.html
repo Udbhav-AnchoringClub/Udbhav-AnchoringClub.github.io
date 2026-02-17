@@ -162,6 +162,7 @@
     left: 0;
     height: 100%;
     display: flex;
+    transition: transform 1s ease-in-out;
 }
 
 .cover-slider img {
@@ -169,8 +170,8 @@
     height: 100%;
     object-fit: cover;
     filter: brightness(60%);
+    flex: 0 0 100%;
 }
-
 
         .profile-content {
             max-width: 1200px;
@@ -1139,48 +1140,44 @@
         });
 
 // Cover Slider JavaScript
+// Infinite Loop Cover Slider
 document.addEventListener('DOMContentLoaded', () => {
+
     const slider = document.getElementById('coverSlider');
-    const images = slider.querySelectorAll('img');
-    const totalImages = images.length;
+    const slides = slider.querySelectorAll('img');
 
-    // Dynamically set slider width
-    slider.style.width = `${totalImages * 100}%`;
+    const firstClone = slides[0].cloneNode(true);
+    slider.appendChild(firstClone);
 
-    // Set each image width properly
-    images.forEach(img => {
-        img.style.flex = `0 0 ${100 / totalImages}%`;
-    });
+    const totalSlides = slider.querySelectorAll('img').length;
 
-    let currentImage = 0;
-    const slideInterval = 5000; // 5 seconds
+    slider.style.width = `${totalSlides * 100}%`;
 
-    function nextSlide() {
-        currentImage++;
+    let index = 0;
+    const intervalTime = 4000;
 
-        if (currentImage >= totalImages) {
-            // Reset instantly without animation
-            slider.style.transition = 'none';
-            slider.style.transform = 'translateX(0)';
-            currentImage = 0;
+    function moveSlide() {
+        index++;
+        slider.style.transition = 'transform 1s ease-in-out';
+        slider.style.transform = `translateX(-${index * 100}%)`;
 
-            // Re-enable transition
+        // When reaching clone, reset smoothly
+        if (index === totalSlides - 1) {
             setTimeout(() => {
-                slider.style.transition = 'transform 1s ease-in-out';
-            }, 50);
-
-        } else {
-            slider.style.transition = 'transform 1s ease-in-out';
-            slider.style.transform = `translateX(-${currentImage * (100 / totalImages)}%)`;
+                slider.style.transition = 'none';
+                slider.style.transform = 'translateX(0)';
+                index = 0;
+            }, 1000);
         }
     }
 
-    setInterval(nextSlide, slideInterval);
+    setInterval(moveSlide, intervalTime);
 });
     </script>
 </body>
 
 </html>
+
 
 
 
